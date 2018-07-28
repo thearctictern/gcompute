@@ -28,27 +28,27 @@ You're going to need a Service Account with Owner privileges on your project. Yo
 
 Try out a simple sample task! Change the credential path to meet your need, and use an instance name that will be unique in your project.
 
-bolt task run gcompute::instance credential=/home/your_user/google.json name=da-instance-6 zone=us-east1-b machinetype=n1-standard-1 imagefamily=centos-7 imageproject=centos-cloud network=default staticip=false sizegb=50
+`bolt task run gcompute::instance credential=/home/your_user/google.json name=da-instance-6 zone=us-east1-b machinetype=n1-standard-1 imagefamily=centos-7 imageproject=centos-cloud network=default staticip=false sizegb=50`
 
 ## Usage
 
 Use the ::instance task with following parameters:
 
-credential - Path to your Service Account JSON file on the bastion host
-name - The unique name (within your project) for the instance you're creating
-zone - The zone you want to build the instance in
-machinetype - The machine type in GCP Compute you want to use. You can get a full list of these using the gcloud command, gcloud compute machine-types list
-imagefamily - The image family in GCP Compute you want to use. You can get a full list of these under the FAMILY column by running, gcloud compute images list
-imageproject - The project family in GCP Compute that the image you want to use belongs to. You can get a full list of these under the PROJECT column by running, gcloud compute images list. More info on this can be found at https://cloud.google.com/sdk/gcloud/reference/compute/images/list.
-network - The network you want to attach the instance to. It needs to exist already. If you're just starting out and not sure, use default.
-staticip - true/false. If true, this will create an external IP for you to connect to; if false, it won't. 
-sizegb - The size of the boot disk you'll associate with this image.
+* **credential** - Path to your Service Account JSON file on the bastion host
+* **name** - The unique name (within your project) for the instance you're creating
+* **zone** - The zone you want to build the instance in
+* **machinetype** - The machine type in GCP Compute you want to use. You can get a full list of these using the gcloud command, gcloud compute machine-types list
+* **imagefamily** - The image family in GCP Compute you want to use. You can get a full list of these under the FAMILY column by running, gcloud compute images list
+* **imageproject** - The project family in GCP Compute that the image you want to use belongs to. You can get a full list of these under the PROJECT column by running, gcloud compute images list. More info on this can be found at https://cloud.google.com/sdk/gcloud/reference/compute/images/list.
+* **network** - The network you want to attach the instance to. It needs to exist already. If you're just starting out and not sure, use default.
+* **staticip** - true/false. If true, this will create an external IP for you to connect to; if false, it won't. 
+* **sizegb** - The size of the boot disk you'll associate with this image.
 
 Seems like a lot of tasks don't debug too well; this one creates a gcompute.XXXXXX in /tmp using mktemp and writes a tonne of stuff to it, and leaves it there for you to read so you know if something breaks, you can find out what (hopefully)!
 
 ## Limitations
 
-Only works on Red Hat and CentOS at the moment - I haven't put the logic in to install the SDK for 
+Only works on Red Hat and CentOS at the moment - I haven't put the logic in to install the SDK for Ubuntu/Debian and Windows (yet).
 
 Look, I'm pretty new at this. You're probably going to run into something. Let me know - david@ternsoftware.org. That said, I'm fairly meticulous and hopefully this will work pretty well.
 
