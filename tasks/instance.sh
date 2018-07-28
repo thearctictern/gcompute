@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# spoofing PT_ variables until we make this a task
+
+export PT_credential=/home/puppet/da-discovery.json
+
 # check that gcloud sdk has been installed
 
 if [[ -n $(find / -wholename '*/bin/gcloud' 2> /dev/null) ]];then 
@@ -20,3 +24,10 @@ EOM
 fi
 
 echo $GCLOUD_PATH
+
+# let's make sure we have a json service account file
+
+if [ ! -f $PT_credential ]; then
+  echo 'Credentials file does not exist - please specify a path to a correct credentials file in json format.'
+  exit 1
+fi
