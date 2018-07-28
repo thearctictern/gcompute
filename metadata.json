@@ -2,9 +2,9 @@
   "name": "arctictern-gcompute",
   "version": "0.1.0",
   "author": "David Alexander",
-  "summary": "",
+  "summary": "Tasks to work with GCP Compute",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/thearctictern/gcompute",
   "dependencies": [
 
   ],
