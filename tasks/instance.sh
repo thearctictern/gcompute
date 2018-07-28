@@ -28,6 +28,8 @@ echo "Path to gcloud binary is $GCLOUD_PATH" >> $debug
 if [ ! -f $PT_credential ]; then
   echo 'Credentials file does not exist - please specify a path to a correct credentials file in json format.' >> $debug
   exit 1
+else 
+  echo "Found a credential file $PT_credential" >> $debug
 fi
 
 $GCLOUD_PATH auth activate-service-account --key-file=${PT_credential}
