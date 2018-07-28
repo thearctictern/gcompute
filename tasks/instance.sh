@@ -30,7 +30,7 @@ if [ ! -f $PT_credential ]; then
   exit 1
 fi
 
-$GCLOUD_PATH auth activate-service-account --key-file=$PT_credential
+$GCLOUD_PATH auth activate-service-account --key-file=${PT_credential}
 
 for scopesInfo in $(gcloud compute instances list --format="csv[no-heading](name,id,serviceAccounts[].email.list(),serviceAccounts[].scopes[].map().list(separator=;))")
 do
