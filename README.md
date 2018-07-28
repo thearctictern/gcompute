@@ -1,15 +1,5 @@
 
-# compute
-
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
-
-The README template below provides a starting point with details about what information to include in your README.
-
-
-
-
-
-
+# gcompute
 
 #### Table of Contents
 
@@ -24,72 +14,44 @@ The README template below provides a starting point with details about what info
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module is what they want.
-
+This module - still in development - provides tasks to use with Compute instances in Google Cloud Project.
 
 ## Setup
 
-### What compute affects **OPTIONAL**
+### Setup Requirements 
 
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
+You'll need a bastion host to run this on. It can be any Red Hat or CentOS host; support for Ubuntu, Debian and Windows is coming soon. If the Google Cloud SDK isn't currently on it, the task will install it and you'll find it happily sitting at /usr/bin/gcloud.
 
-If there's more that they should know about, though, this is the place to mention:
-
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+You're going to need a Service Account with Owner privileges on your project. You can get the instructions for how to do this at https://cloud.google.com/iam/docs/creating-managing-service-accounts. It's easy to do, and you'll get a JSON file which you'll need to make available on the bastion host.
 
 ### Beginning with compute
 
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+Try out a simple sample task! Change the credential path to meet your need, and use an instance name that will be unique in your project.
+
+bolt task run gcompute::instance credential=/home/your_user/google.json name=da-instance-6 zone=us-east1-b machinetype=n1-standard-1 imagefamily=centos-7 imageproject=centos-cloud network=default staticip=false sizegb=50
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your users how to use your module to solve problems, and be sure to include code examples. Include three to five examples of the most important or common tasks a user can accomplish with your module. Show users how to accomplish more complex tasks that involve different types, classes, and functions working in tandem.
+Use the ::instance task with following parameters:
 
-## Reference
+credential - Path to your Service Account JSON file on the bastion host
+name - The unique name (within your project) for the instance you're creating
+zone - The zone you want to build the instance in
+machinetype - The machine type in GCP Compute you want to use. You can get a full list of these using the gcloud command, gcloud compute machine-types list
+imagefamily - The image family in GCP Compute you want to use. You can get a full list of these under the FAMILY column by running, gcloud compute images list
+imageproject - The project family in GCP Compute that the image you want to use belongs to. You can get a full list of these under the PROJECT column by running, gcloud compute images list. More info on this can be found at https://cloud.google.com/sdk/gcloud/reference/compute/images/list.
+network - The network you want to attach the instance to. It needs to exist already. If you're just starting out and not sure, use default.
+staticip - true/false. If true, this will create an external IP for you to connect to; if false, it won't. 
+sizegb - The size of the boot disk you'll associate with this image.
 
-This section is deprecated. Instead, add reference information to your code as Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your module. For details on how to add code comments and generate documentation with Strings, see the Puppet Strings [documentation](https://puppet.com/docs/puppet/latest/puppet_strings.html) and [style guide](https://puppet.com/docs/puppet/latest/puppet_strings_style.html)
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the root of your module directory and list out each of your module's classes, defined types, facts, functions, Puppet tasks, task plans, and resource types and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
-
-For example:
-
-```
-### `pet::cat`
-
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
-```
+Seems like a lot of tasks don't debug too well; this one creates a gcompute.XXXXXX in /tmp using mktemp and writes a tonne of stuff to it, and leaves it there for you to read so you know if something breaks, you can find out what (hopefully)!
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other warnings.
+Only works on Red Hat and CentOS at the moment - I haven't put the logic in to install the SDK for 
+
+Look, I'm pretty new at this. You're probably going to run into something. Let me know - david@ternsoftware.org. That said, I'm fairly meticulous and hopefully this will work pretty well.
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
+Probably submit a PR if you want to help out I guess. Again, new at this.
