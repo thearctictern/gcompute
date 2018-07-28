@@ -3,6 +3,8 @@
 # spoofing PT_ variables until we make this a task
 
 export PT_credential=/home/puppet/da-discovery.json
+export PT_name=da-instance-5
+export PT_action=create
 
 # check that gcloud sdk has been installed
 
@@ -31,3 +33,23 @@ if [ ! -f $PT_credential ]; then
   echo 'Credentials file does not exist - please specify a path to a correct credentials file in json format.'
   exit 1
 fi
+
+gcloud auth activate-service-account --key-file $PT_credential
+
+for scopesInfo in $(gcloud compute instances list --format="csv[no-heading](name,id,serviceAccounts[].email.list(),serviceAccounts[].scopes[].map().list(separator=;))")
+do
+      IFS=',' read -r -a scopesInfoArray<<< "$scopesInfo"
+      NAME="${scopesInfoArray[0]}"
+      ID="${scopesInfoArray[1]}"
+      EMAIL="${scopesInfoArray[2]}"
+      SCOPES_LIST="${scopesInfoArray[3]}"
+
+      echo "NAME: $NAME, ID: $ID, EMAIL: $EMAIL"
+      for instance in $NAME
+      do
+        if [ $PT_name == $instance ] && [ $PT_action == 'create' ]; then
+          echo 'This instance already exists. Please specify an instance name that is unique.'
+          exit 1
+        fi
+      done 
+done
