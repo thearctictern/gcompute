@@ -4,7 +4,6 @@
 
 export PT_credential=/home/puppet/da-discovery.json
 export PT_name=da-instance-6
-export PT_action=create # create|destroy
 export PT_zone=us-east1-b
 export PT_machinetype=n1-standard-1
 export PT_imagefamily=centos-7
@@ -51,7 +50,7 @@ do
       EMAIL="${scopesInfoArray[2]}"
       SCOPES_LIST="${scopesInfoArray[3]}"
 
-      if [ $PT_name == $NAME ] && [ $PT_action == 'create' ]; then
+      if [ $PT_name == $NAME ]; then
         echo 'This instance already exists. Please specify an instance name that is unique.'
         exit 1
       fi
