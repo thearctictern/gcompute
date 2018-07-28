@@ -2,8 +2,8 @@
 
 # check that gcloud sdk has been installed
 
-if [[ -n $(find / -wholename */bin/gcloud 2> /dev/null) ]];then 
-  export $GCLOUD_PATH=$(find / -wholename */bin/gcloud 2> /dev/null | head -n 1)
+if [[ -n $(find / -wholename '*/bin/gcloud' 2> /dev/null) ]];then 
+  export GCLOUD_PATH=$(find / -wholename '*/bin/gcloud' 2> /dev/null | head -n 1)
 else
   sudo tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
     [google-cloud-sdk]
@@ -16,5 +16,7 @@ else
         https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOM
   yum install google-cloud-sdk -y
-  export $GCLOUD_PATH=/usr/bin/gcloud
+  export GCLOUD_PATH=/usr/bin/gcloud
 fi
+
+echo $GCLOUD_PATH
