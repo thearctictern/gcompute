@@ -16,8 +16,8 @@
         "type": "String[1]"
       },
       "sizegb": {
-        "description": "The size of the VM disk (in GB)",
-        "type": "Integer"
+        "description": "The size of the VM disk (in GB) as a number - for example, 50",
+        "type": "String[1]"
       },
       "machinetype": {
         "description": "The type of the machine to create",
