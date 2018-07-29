@@ -6,6 +6,10 @@
         "description": "Name of the machine to create",
         "type": "String[1]"
       },
+      "project": {
+        "description": "A GCP project which you are authorised to work within",
+        "type": "String[1]"
+      },
       "imagefamily": {
         "description": "Which image family to launch the instance from",
         "type": "String[1]"

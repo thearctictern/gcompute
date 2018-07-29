@@ -33,6 +33,7 @@ else
 fi
 
 $GCLOUD_PATH auth activate-service-account --key-file=${PT_credential}
+$GCLOUD_PATH config set project $PT_project
 
 for scopesInfo in $(gcloud compute instances list --format="csv[no-heading](name,id,serviceAccounts[].email.list(),serviceAccounts[].scopes[].map().list(separator=;))")
 do
