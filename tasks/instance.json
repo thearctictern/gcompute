@@ -1,5 +1,5 @@
 {
-    "description": "Rapidly create an instance on Google Compute",
+    "description": "Rapidly create an instance on GCP Compute",
     "supports_noop": false,
     "parameters": {
       "name": {
