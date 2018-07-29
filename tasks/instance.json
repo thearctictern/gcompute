@@ -1,7 +1,6 @@
 {
     "description": "Rapidly create an instance on Google Compute",
     "supports_noop": false,
-    "input_method": "stdin",
     "parameters": {
       "name": {
         "description": "Name of the machine to create",
@@ -25,7 +24,7 @@
       },
       "staticip": {
         "description": "If true it will allocate a static IP for the machine",
-        "type": "Boolean"
+        "type": "String[1]"
       },
       "network": {
         "description": "The network to connect the VM to",
