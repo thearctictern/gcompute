@@ -107,7 +107,7 @@ if [ $networkpass = false ]; then
   exit 1
 fi
 export sizeGB="${PT_sizegb}GB"
-if [ $PT_staticip = false ]; then
+if [ $PT_staticip == "false" ]; then
   gcloud compute instances create $PT_name --zone=$PT_zone --machine-type=$PT_machinetype --create-disk=image-family=$PT_imagefamily,image-project=$PT_imageproject,size=$sizeGB --image-family=$PT_imagefamily --image-project=$PT_imageproject --network=$PT_network --no-address >>$debug 2>&1
 else
   gcloud compute instances create $PT_name --zone=$PT_zone --machine-type=$PT_machinetype --create-disk=image-family=$PT_imagefamily,image-project=$PT_imageproject,size=$sizeGB --image-family=$PT_imagefamily --image-project=$PT_imageproject --network=$PT_network >>$debug 2&>1
