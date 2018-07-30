@@ -1,24 +1,39 @@
 #!/bin/bash
 
 debug="$(mktemp /tmp/gcompute.XXXXXXXX)"
+export DISTRO=`head /etc/os-release -n 1 | awk -F'=' '{print $2}' | sed 's/"//g'`
 
 # check that gcloud sdk has been installed
-
-if [[ -n $(find / -wholename '*/bin/gcloud' 2> /dev/null) ]];then 
-  export GCLOUD_PATH=$(find / -wholename '*/bin/gcloud' 2> /dev/null | head -n 1)
-else
-  tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
-  [google-cloud-sdk]
-  name=Google Cloud SDK
-  baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
-  enabled=1
-  gpgcheck=1
-  repo_gpgcheck=1
-  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-      https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+if [[ $DISTRO == "Red Hat Enterprise Linux Server"]]; then
+  if [[ -n $(find / -wholename '*/bin/gcloud' 2> /dev/null) ]];then 
+    export GCLOUD_PATH=$(find / -wholename '*/bin/gcloud' 2> /dev/null | head -n 1)
+  else
+    tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
+    [google-cloud-sdk]
+    name=Google Cloud SDK
+    baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
+    enabled=1
+    gpgcheck=1
+    repo_gpgcheck=1
+    gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOM
-  yum install google-cloud-sdk -y
-  export GCLOUD_PATH=/usr/bin/gcloud
+    yum install google-cloud-sdk -y
+    export GCLOUD_PATH=/usr/bin/gcloud
+  fi
+elif [[ $DISTRO == "Ubuntu" ]]; then
+  if [[ -n $(find / -wholename '*/bin/gcloud' 2> /dev/null) ]];then 
+      export GCLOUD_PATH=$(find / -wholename '*/bin/gcloud' 2> /dev/null | head -n 1)
+  else
+    export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+    echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    apt-get update && apt-get install google-cloud-sdk
+    export GCLOUD_PATH=/usr/bin/gcloud
+  fi
+else
+  echo "This distribution $DISTRO is not currently supported." >> $debug
+  exit 1
 fi
 
 echo "Path to gcloud binary is $GCLOUD_PATH" >> $debug
