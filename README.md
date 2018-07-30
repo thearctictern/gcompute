@@ -20,15 +20,15 @@ This module - still in development - provides tasks to use with Compute instance
 
 ### Setup Requirements 
 
-You'll need a bastion host to run this on. It can be any Red Hat or CentOS host; support for Ubuntu, Debian and Windows is coming soon. If the Google Cloud SDK isn't currently on it, the task will install it and you'll find it happily sitting at /usr/bin/gcloud.
+You'll need a bastion host to run this on. It can be any Red Hat, CentOS, Ubuntu or Debian host. Windows is coming soon. If the Google Cloud SDK isn't currently on it, the task will install it and you'll find it happily sitting at /usr/bin/gcloud.
 
 You're going to need a Service Account with Owner privileges on your project. You can get the instructions for how to do this at https://cloud.google.com/iam/docs/creating-managing-service-accounts. It's easy to do, and you'll get a JSON file which you'll need to make available on the bastion host.
 
-### Beginning with compute
+### Beginning with gcompute
 
 Try out a simple sample task! Change the credential path to meet your need, and use an instance name that will be unique in your project.
 
-`bolt task run gcompute::instance credential=/home/your_user/google.json name=da-instance-6 zone=us-east1-b machinetype=n1-standard-1 imagefamily=centos-7 imageproject=centos-cloud network=default staticip=false sizegb=50`
+`bolt task run gcompute::instance credential=/home/your_user/google.json name=da-instance-6 zone=us-east1-b machinetype=n1-standard-1 imagefamily=centos-7 imageproject=centos-cloud network=default staticip=false sizegb=50 project=some-gcp-project-i-have-perms-for --nodes some-node`
 
 ## Usage
 
@@ -43,12 +43,13 @@ Use the ::instance task with following parameters:
 * **network** - The network you want to attach the instance to. It needs to exist already. If you're just starting out and not sure, use default.
 * **staticip** - true/false. If true, this will create an external IP for you to connect to; if false, it won't. 
 * **sizegb** - The size of the boot disk you'll associate with this image.
+* **project** - A GCP project you have create permissions in.
 
 Seems like a lot of tasks don't debug too well; this one creates a gcompute.XXXXXX in /tmp using mktemp and writes a tonne of stuff to it, and leaves it there for you to read so you know if something breaks, you can find out what (hopefully)!
 
 ## Limitations
 
-Only works on Red Hat and CentOS at the moment - I haven't put the logic in to install the SDK for Ubuntu/Debian and Windows (yet).
+Only works on Red Hat, CentOS, Ubuntu and Debian at the moment - I haven't put the logic in to install the SDK for Windows (yet).
 
 Look, I'm pretty new at this. You're probably going to run into something. Let me know - david@ternsoftware.org. That said, I'm fairly meticulous and hopefully this will work pretty well.
 

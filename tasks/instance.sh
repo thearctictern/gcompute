@@ -4,7 +4,7 @@ debug="$(mktemp /tmp/gcompute.XXXXXXXX)"
 export DISTRO=`head /etc/os-release -n 1 | awk -F'=' '{print $2}' | sed 's/"//g'`
 
 # check that gcloud sdk has been installed
-if [[ $DISTRO == "Red Hat Enterprise Linux Server" ]]; then
+if [[ ( $DISTRO == "Red Hat Enterprise Linux Server" ) || ( $DISTRO == "CentOS Linux" ) ]]; then
   if [[ -n $(find / -wholename '*/bin/gcloud' 2> /dev/null) ]]; then 
     export GCLOUD_PATH=$(find / -wholename '*/bin/gcloud' 2> /dev/null | head -n 1)
   else
@@ -21,7 +21,7 @@ EOM
     yum install google-cloud-sdk -y
     export GCLOUD_PATH=/usr/bin/gcloud
   fi
-elif [[ $DISTRO == "Ubuntu" ]]; then
+elif [[ ( $DISTRO == "Ubuntu" ) || ( $DISTRO =~ "^Debian.*$" ) ]]; then
   if [[ -n $(find / -wholename '*/bin/gcloud' 2> /dev/null) ]];then 
       export GCLOUD_PATH=$(find / -wholename '*/bin/gcloud' 2> /dev/null | head -n 1)
   else
