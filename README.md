@@ -51,7 +51,7 @@ Seems like a lot of tasks don't debug too well; this one creates a gcompute.XXXX
 
 Only works on Red Hat, CentOS, Ubuntu and Debian at the moment - I haven't put the logic in to install the SDK for Windows (yet).
 
-Look, I'm pretty new at this. You're probably going to run into something. Let me know - david@ternsoftware.org. That said, I'm fairly meticulous and hopefully this will work pretty well.
+I'm pretty new at this. You're probably going to run into something. Let me know - david@ternsoftware.org. That said, I'm fairly meticulous and hopefully this will work pretty well.
 
 ## Development
 
