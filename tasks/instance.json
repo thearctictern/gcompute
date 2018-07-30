@@ -42,10 +42,6 @@
         "description": "Path to a service account credentials file",
         "type": "String[1]"
       }
-    },
-    "implementations": [
-        {"name": "instance.sh", "requirements": ["shell"]},
-        {"name": "instance.ps1", "requirements": ["powershell"]}
-    ]
+    }
   }
   
