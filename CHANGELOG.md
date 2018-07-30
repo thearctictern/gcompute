@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.2
+## Release 0.2.0
 
 Ubuntu is now supported properly; Debian and Windows next. 
 
