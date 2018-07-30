@@ -55,4 +55,4 @@ Look, I'm pretty new at this. You're probably going to run into something. Let m
 
 ## Development
 
-Probably submit a PR if you want to help out I guess. Again, new at this.
+Probably submit a PR if you want to help out. Again, new at this.
