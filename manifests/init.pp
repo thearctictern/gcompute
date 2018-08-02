@@ -1,8 +1,15 @@
-# manage instances in GCP
+# manage instance in GCP
 
 class gcompute(
   String $credential,
-  Hash $gcp_machines,
+  String $instance_name,
+  String $project,
+  String $zone,
+  String $machinetype,
+  String $imagefamily,
+  String $imageproject,
+  String $sizeGB,
+  String $network,
 ){
   package { [
     'googleauth',
@@ -18,10 +25,8 @@ class gcompute(
       'https://www.googleapis.com/auth/ndev.clouddns.readwrite',
     ],
   }->
-  $gcp_machines.each |String $name, String $project, String $zone, String $machinetype, String $imagefamily, String $imageproject, String $sizeGB, String $network| {
-    exec { 'Idempotent GCP Create':
-      command => "gcloud compute instances create ${name} --project=${project} --zone=${zone} --machine-type=${machinetype} --create-disk=image-family=${imagefamily},image-project=${imageproject},size=${sizeGB} --image-family=${imagefamily} --image-project=${imageproject} --network=${network}",
-      unless  => "\$(gcloud compute instances list | grep ${name} | awk -F' ' {'print \$1'}) == \"${name}\"",
-    }
+  exec { 'Idempotent GCP Create':
+    command => "gcloud compute instances create ${instance_name} --project=${project} --zone=${zone} --machine-type=${machinetype} --create-disk=image-family=${imagefamily},image-project=${imageproject},size=${sizeGB} --image-family=${imagefamily} --image-project=${imageproject} --network=${network}",
+    unless  => "\$(gcloud compute instances list | grep ${instance_name} | awk -F' ' {'print \$1'}) == \"${instance_name}\"",
   }
 }
