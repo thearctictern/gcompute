@@ -1,15 +1,9 @@
 # manage instance in GCP
 
-class gcompute(
-  String $credential,
-){
-  file { $credential:
-    ensure => file,
-    source => 'puppet:///modules/profile/gcp.json',
-  }->
+class gcompute {
   class { '::ruby':
     gems_version => 'latest',
-  }->
+  }
   package { [
     'googleauth',
     'google-api-client',
@@ -17,4 +11,5 @@ class gcompute(
     ensure   => present,
     provider => gem,
   }
+  include gcloudsdk
 }
