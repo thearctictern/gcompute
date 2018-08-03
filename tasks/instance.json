@@ -19,7 +19,7 @@
         "type": "String[1]"
       },
       "sizegb": {
-        "description": "The size of the VM disk (in GB) as a number - for example, 50",
+        "description": "The size of the VM disk (in GB) as a number appended with GB - for example, 50GB",
         "type": "String[1]"
       },
       "machinetype": {

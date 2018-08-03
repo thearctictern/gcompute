@@ -122,7 +122,7 @@ Use the ::instance task with following parameters:
 * **imageproject** - The project family in GCP Compute that the image you want to use belongs to. You can get a full list of these under the PROJECT column by running, gcloud compute images list. More info on this can be found at https://cloud.google.com/sdk/gcloud/reference/compute/images/list.
 * **network** - The network you want to attach the instance to. It needs to exist already. If you're just starting out and not sure, use default.
 * **staticip** - true/false. If true, this will create an external IP for you to connect to; if false, it won't. 
-* **sizegb** - The size of the boot disk you'll associate with this image.
+* **sizegb** - The size of the boot disk you'll associate with this image, appended with GB - e.g. "50GB"
 * **project** - A GCP project you have create permissions in.
 
 Seems like a lot of tasks don't debug too well; this one creates a gcompute.XXXXXX in /tmp using mktemp and writes a tonne of stuff to it, and leaves it there for you to read so you know if something breaks, you can find out what (hopefully)!
