@@ -16,12 +16,5 @@ class gcompute(
     ]:
     ensure   => present,
     provider => gem,
-  }->
-  gauth_credential { 'mycred':
-    path     => $credential,
-    provider => serviceaccount,
-    scopes   => [
-      'https://www.googleapis.com/auth/ndev.clouddns.readwrite',
-    ],
   }
 }
