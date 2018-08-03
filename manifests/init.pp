@@ -16,7 +16,7 @@ class gcompute(
     'google-api-client',
     ]:
     ensure   => present,
-    provider => gem,
+    provider => puppet_gem,
   }->
   gauth_credential { 'mycred':
     path     => $credential,
