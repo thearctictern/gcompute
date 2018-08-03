@@ -11,12 +11,15 @@ class gcompute(
   String $sizeGB,
   String $network,
 ){
+  class { '::ruby':
+    gems_version => 'latest',
+  }->
   package { [
     'googleauth',
     'google-api-client',
     ]:
     ensure   => present,
-    provider => puppet_gem,
+    provider => gem,
   }->
   gauth_credential { 'mycred':
     path     => $credential,
