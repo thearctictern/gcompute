@@ -38,7 +38,8 @@ Try out a simple sample task! Change the credential path to meet your need, and 
 
 The best approach is to be using Roles and Profiles. Include the gcompute class in your profile to setup some prerequisites, and then use the gcompute::instance in a splatted hash to build and maintain your machines:
 
-```class profile::gcompute(
+```
+class profile::gcompute(
   String $credential,
   Hash $gcp_machines,
   String $gcloudpath,
@@ -52,11 +53,13 @@ The best approach is to be using Roles and Profiles. Include the gcompute class 
       *             => $attributes,
     }
   }
-}```
+}
+```
 
 The accompanying Hiera should look something like this:
 
-```---
+```
+---
 
 profile::gcompute::credential: /home/puppet/gcp.json
 profile::gcompute::gcloudpath: /usr/bin/gcloud
@@ -76,11 +79,13 @@ profile::gcompute::gcp_machines:
     imagefamily: centos-7 
     imageproject: centos-cloud 
     sizeGB: 50GB 
-    network: default```
+    network: default
+```
 
 The defined type `gcompute::instance` looks like this, if you want to use it differently:
 
-```define gcompute::instance (
+```
+define gcompute::instance (
   String $credential,
   String $gcloud_path,
   String $instance_name = $title,
@@ -100,7 +105,8 @@ The defined type `gcompute::instance` looks like this, if you want to use it dif
     command => "${gcloud_path} compute instances create ${instance_name} --project=${project} --zone=${zone} --machine-type=${machinetype} --create-disk=image-family=${imagefamily},image-project=${imageproject},size=${sizeGB} --image-family=${imagefamily} --image-project=${imageproject} --network=${network}",
     unless  => "/bin/test \"\$(${gcloud_path} compute instances list | grep -c \'${instance_name}[[:space:]]\')\" -eq 1",
   }
-}```
+}
+```
 
 One day I'll replace the execs with actual types hitting the API, but not today. This works really well for the moment though.
 
