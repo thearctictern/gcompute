@@ -31,6 +31,6 @@ class gcompute(
   }->
   exec { 'Idempotent GCP Create':
     command => "${gcloud_path} compute instances create ${instance_name} --project=${project} --zone=${zone} --machine-type=${machinetype} --create-disk=image-family=${imagefamily},image-project=${imageproject},size=${sizeGB} --image-family=${imagefamily} --image-project=${imageproject} --network=${network}",
-    unless  => "[ \$(${gcloud_path} compute instances list | grep ${instance_name} | awk -F' ' {'print \$1'}) == \"${instance_name}\" ]",
+    unless  => "/bin/test \$(${gcloud_path} compute instances list | grep ${instance_name} | awk -F' ' {'print \$1'}) == \"${instance_name}\"",
   }
 }
