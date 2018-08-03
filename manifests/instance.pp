@@ -1,4 +1,5 @@
 define gcompute::instance (
+  String $gcloud_path,
   String $instance_name = $title,
   String $project,
   String $zone,
