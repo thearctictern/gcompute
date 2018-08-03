@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.1
+
+Minor fixes
+
 ## Release 1.0.0
 
 Added fully idempotent instance creation support with a Puppet manifest - see the readme.
