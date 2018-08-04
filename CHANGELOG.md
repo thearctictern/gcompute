@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.3
+
+Metadata updates, minor quality fixes
+
 ## Release 1.0.2
 
 Update to sizeGB info in Tasks and Readme

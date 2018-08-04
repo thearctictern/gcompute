@@ -6,8 +6,8 @@
   "license": "Apache-2.0",
   "source": "https://github.com/thearctictern/gcompute",
   "dependencies": [
-    { "name": "RanjithKumar45/gcloudsdk", "version_requirement": ">= 1.2.0" },
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 2.4.0" },
+    { "name": "RanjithKumar45/gcloudsdk", "version_requirement": ">=1.2.0" },
+    { "name": "puppetlabs/stdlib", "version_requirement": ">=2.4.0" },
     { "name": "camptocamp/archive", "version_requirement": ">=0.8.1" }
   ],
   "operatingsystem_support": [

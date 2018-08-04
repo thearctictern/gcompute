@@ -1,7 +1,6 @@
 define gcompute::instance (
   String $credential,
   String $gcloud_path,
-  String $instance_name = $title,
   String $project,
   String $zone,
   String $machinetype,
@@ -9,6 +8,7 @@ define gcompute::instance (
   String $imageproject,
   String $sizeGB,
   String $network,
+  String $instance_name = $title,
 ){
   exec { "Idempotent GCP Login for ${instance_name} create":
     command => "${gcloud_path} auth activate-service-account --key-file=${credential}",
