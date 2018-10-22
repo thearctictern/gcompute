@@ -38,7 +38,7 @@ fi
 
 echo "Path to gcloud binary is $GCLOUD_PATH" >> $debug
 
-# let's make sure we have a json service account file
+# let's make sure we have a json service account file adding a commenty
 
 if [ ! -f $PT_credential ]; then
   echo 'Credentials file does not exist - please specify a path to a correct credentials file in json format.' >> $debug
